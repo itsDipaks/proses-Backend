@@ -8,7 +8,9 @@ app.use(express.json());
 
 app.use(cors());
 app.use("/user", UserRouter);
-
+app.use("/",(req,res)=>{
+  res.send("Poses Tech")
+})
 app.listen(8400, async () => {
   try {
     console.log("Server started");
