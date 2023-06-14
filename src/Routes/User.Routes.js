@@ -5,7 +5,8 @@ const UserRouter = Router();
 UserRouter.post("/", async (req, res) => {
   const {username, email} = req.body;
   const isuser = await UserModel.findOne({email});
-  if (!isuser) {
+  const isusername = await UserModel.findOne({username});
+  if (!isuser && !isusername) {
     try {
       const Adduser = new UserModel(req.body);
       await Adduser.save();
@@ -13,6 +14,8 @@ UserRouter.post("/", async (req, res) => {
     } catch (err) {
       res.status(200).send({msg: "error"});
     }
+  } else if(username){
+    res.status(200).send({msg: "User Exist username"})
   } else {
     res.status(200).send({msg: "User Exist"});
   }
